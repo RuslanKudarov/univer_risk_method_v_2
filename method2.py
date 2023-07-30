@@ -16,7 +16,9 @@ def run():
     
     question = ("Выберите действие:")
     
-    add_selectbox = st.sidebar.selectbox(question, ("Загрузка данных", "Построение модели", "Прогнозирование неуспеваемости"))
+    add_selectbox = st.sidebar.selectbox(question, ("Загрузка данных",
+                                                    "Построение модели",
+                                                    "Прогнозирование неуспеваемости"))
     
     sidebar_ttl = ("Методика прогнозирования\n"
                   "академической неуспеваемости студентов.")
@@ -32,8 +34,8 @@ def run():
         
         if file_abit_upload is not None:
             df_abit = pd.read_excel(file_abit_upload,
-                                      sheet_name = "Абитуриенты",
-                                      header = 9)        
+                                    sheet_name = "Абитуриенты",
+                                    header = 9)        
             # вывод данных на веб-странице
             check_abit = st.checkbox('Посмотреть данные абитуриентов')
             if check_abit:
@@ -41,17 +43,13 @@ def run():
 
         file_stud_upload_ttl = ("Студенты:")
         file_stud_upload = st.file_uploader(file_stud_upload_ttl,
-                                       type = ['xls' or 'xlsx'],
-                                       accept_multiple_files = False,
-                                       help = 'перетащите сюда файл, скачанный из модуля "Студенты"')
+                                            type = ['xls' or 'xlsx'],
+                                            help = 'перетащите сюда файл, скачанный из модуля "Студенты"')
         
         if file_stud_upload is not None:
-            df_stud = pd.DataFrame()
-            data_stud = pd.read_excel(file_stud_upload,
-                                      sheet_name = "Обучающиеся",
-                                      header = 3)
-            df_stud = pd.concat([df_stud, data_stud],
-                                ignore_index = True)
+            df_stud = pd.read_excel(file_stud_upload,
+                                    sheet_name = "Обучающиеся",
+                                    header = 3)
             # вывод данных на веб-странице
             check_stud = st.checkbox('Посмотреть данные студентов')
             if check_stud:
@@ -67,11 +65,10 @@ def run():
             df_mon_all = pd.DataFrame()
             for file_mon_all_upload in files_mon_all_upload:
                 data_mon_all = pd.read_excel(file_mon_all_upload,
-                                          sheet_name = "Список студентов",
-                                          header = 3)
+                                             sheet_name = "Список студентов",
+                                             header = 3)
                 df_mon_all = pd.concat([df_mon_all, data_mon_all],
                                        ignore_index = True)
-        
         if len(df_mon_all.index) > 0:
             # вывод на веб-странице данных мониторинга (все студенты)
             check_mon_all = st.checkbox('Посмотреть данные мониторинга (все студенты)')
