@@ -42,7 +42,6 @@ def run():
             # вывод данных на веб-странице
             check_abit = st.checkbox('Посмотреть данные абитуриентов')
             if check_abit:
-                st.success("Данные абитуриентов:")
                 st.write(df_abit)
 
         file_stud_upload_ttl = ("Загрузите Excel-файл с данными студентов\n"
@@ -60,7 +59,6 @@ def run():
             df_stud = pd.concat([df_stud, data_stud],
                                 ignore_index = True)
             # вывод данных на веб-странице
-            st.success("Данные абитуриентов:")
             st.write(df_stud)    
         
     if add_selectbox == "Построение модели":
