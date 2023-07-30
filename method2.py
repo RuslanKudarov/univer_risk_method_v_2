@@ -24,9 +24,8 @@ def run():
     if add_selectbox == "Загрузка данных":
         st.sidebar.info(sidebar_ttl)
         st.title("Загрузите Excel-файлы с данными из ЕАИСУ")
-        st.title("(принимаются файлы с расширением xls и xlsx)")
               
-        file_abit_upload_ttl = ("Данные абитуриентов:")
+        file_abit_upload_ttl = ("Абитуриенты:")
         file_abit_upload = st.file_uploader(file_abit_upload_ttl,
                                        type = ['xls' or 'xlsx'],
                                        help = 'перетащите сюда файл, скачанный из модуля "Абитуриенты"')
@@ -40,7 +39,7 @@ def run():
             if check_abit:
                 st.write(df_abit)
 
-        file_stud_upload_ttl = ("Данные студентов:")
+        file_stud_upload_ttl = ("Студенты:")
         file_stud_upload = st.file_uploader(file_stud_upload_ttl,
                                        type = ['xls' or 'xlsx'],
                                        accept_multiple_files = False,
@@ -58,11 +57,11 @@ def run():
             if check_stud:
                 st.write(df_stud)
 
-        files_mon_all_upload_ttl = ("Данные мониторинга (все студенты):")
+        files_mon_all_upload_ttl = ("Мониторинг (все студенты):")
         files_mon_all_upload = st.file_uploader(files_mon_all_upload_ttl,
                                                 type = ['xls' or 'xlsx'],
                                                 accept_multiple_files = True,
-                                                help = 'перетащите сюда файл, скачанный из модуля "Мониторинг образовательного процесса"')
+                                                help = 'перетащите сюда файлы, скачанные из модуля "Мониторинг образовательного процесса"')
         
         if files_mon_all_upload is not None:
             df_mon_all = pd.DataFrame()
