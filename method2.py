@@ -48,7 +48,7 @@ def run():
                           "с данными студентов:")
         file_stud_upload = st.file_uploader(file_stud_upload_ttl,
                                        type = ['xls' or 'xlsx'],
-                                       accept_multiple_files = True,
+                                       accept_multiple_files = False,
                                        help = 'принимаются файлы с расширением xls или xlsx')
         
         if file_stud_upload is not None:
@@ -61,7 +61,27 @@ def run():
             # вывод данных на веб-странице
             check_stud = st.checkbox('Посмотреть данные студентов')
             if check_stud:
-                st.write(df_stud) 
+                st.write(df_stud)
+
+        files_mon_all_upload_ttl = ("Загрузите Excel-файл\n"
+                                   "с данными мониторинга (все студенты):")
+        files_mon_all_upload = st.file_uploader(files_mon_all_upload_ttl,
+                                                type = ['xls' or 'xlsx'],
+                                                accept_multiple_files = True,
+                                                help = 'принимаются файлы с расширением xls или xlsx')
+        
+        if files_mon_all_upload is not None:
+            df_mon_all = pd.DataFrame()
+            for file_mon_all_upload in files_mon_all_upload:
+                data_mon_all = pd.read_excel(file_mon_all_upload,
+                                          sheet_name = "Список студентов",
+                                          header = 3)
+                df_mon_all = pd.concat([df_mon_all, data_mon_all],
+                                       ignore_index = True)
+            # вывод данных на веб-странице
+            check_mon_all = st.checkbox('Посмотреть данные мониторинга (все студенты)')
+            if check_stud:
+                st.write(df_mon_all) 
         
     if add_selectbox == "Построение модели":
         st.sidebar.info(sidebar_ttl)
