@@ -74,6 +74,66 @@ def run():
             check_mon_all = st.checkbox('Посмотреть данные мониторинга (все студенты)')
             if check_mon_all:
                 st.write(df_mon_all) 
+
+        files_mon_neud_upload_ttl = ("Мониторинг (имеют "неудовл"):")
+        files_mon_neud_upload = st.file_uploader(files_mon_neud_upload_ttl,
+                                                type = ['xls' or 'xlsx'],
+                                                accept_multiple_files = True,
+                                                help = 'перетащите сюда файлы, скачанные из модуля "Мониторинг образовательного процесса"')
+        
+        if files_mon_neud_upload is not None:
+            df_mon_neud = pd.DataFrame()
+            for file_mon_neud_upload in files_mon_neud_upload:
+                data_mon_neud = pd.read_excel(file_mon_neud_upload,
+                                             sheet_name = "Список студентов",
+                                             header = 3)
+                df_mon_neud = pd.concat([df_mon_neud, data_mon_neud],
+                                       ignore_index = True)
+        if len(df_mon_neud.index) > 0:
+            # вывод на веб-странице данных мониторинга (имеют "неудовл")
+            check_mon_neud = st.checkbox('Посмотреть данные мониторинга (имеют "неудовл")')
+            if check_mon_neud:
+                st.write(df_mon_neud)
+
+        files_mon_neat_upload_ttl = ("Мониторинг (не аттестованы):")
+        files_mon_neat_upload = st.file_uploader(files_mon_neat_upload_ttl,
+                                                type = ['xls' or 'xlsx'],
+                                                accept_multiple_files = True,
+                                                help = 'перетащите сюда файлы, скачанные из модуля "Мониторинг образовательного процесса"')
+        
+        if files_mon_neat_upload is not None:
+            df_mon_neat = pd.DataFrame()
+            for file_mon_neat_upload in files_mon_neat_upload:
+                data_mon_neat = pd.read_excel(file_mon_neat_upload,
+                                             sheet_name = "Список студентов",
+                                             header = 3)
+                df_mon_neat = pd.concat([df_mon_neat, data_mon_neat],
+                                       ignore_index = True)
+        if len(df_mon_neat.index) > 0:
+            # вывод на веб-странице данных мониторинга (не аттестованы)
+            check_mon_neat= st.checkbox('Посмотреть данные мониторинга (не аттестованы)')
+            if check_mon_neat:
+                st.write(df_mon_neat)
+                
+        files_mon_usp_upload_ttl = ("Мониторинг (успевают):")
+        files_mon_usp_upload = st.file_uploader(files_mon_usp_upload_ttl,
+                                                type = ['xls' or 'xlsx'],
+                                                accept_multiple_files = True,
+                                                help = 'перетащите сюда файлы, скачанные из модуля "Мониторинг образовательного процесса"')
+        
+        if files_mon_usp_upload is not None:
+            df_mon_usp = pd.DataFrame()
+            for file_mon_usp_upload in files_mon_usp_upload:
+                data_mon_usp = pd.read_excel(file_mon_usp_upload,
+                                             sheet_name = "Список студентов",
+                                             header = 3)
+                df_mon_usp = pd.concat([df_mon_usp, data_mon_usp],
+                                       ignore_index = True)
+        if len(df_mon_usp.index) > 0:
+            # вывод на веб-странице данных мониторинга (успевают)
+            check_mon_usp = st.checkbox('Посмотреть данные мониторинга (успевают)')
+            if check_mon_usp:
+                st.write(df_mon_usp)
         
     if add_selectbox == "Построение модели":
         st.sidebar.info(sidebar_ttl)
