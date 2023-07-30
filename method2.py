@@ -16,7 +16,9 @@ def run():
     
     question = ("Выберите действие:")
     
-    add_selectbox = st.sidebar.selectbox(question, ("Подготовка данных",
+    add_selectbox = st.sidebar.selectbox(question, ("Загрузка данных",
+                                                    "Подготовка данных",
+                                                    "Обработка данных",
                                                     "Построение модели",
                                                     "Прогнозирование неуспеваемости"))
     
@@ -25,7 +27,7 @@ def run():
 
 # загрузка данных
     
-    if add_selectbox == "Подготовка данных":
+    if add_selectbox == "Загрузка данных":
         st.sidebar.info(sidebar_ttl)
         st.title("Загрузите Excel-файлы с данными из ЕАИСУ")
               
@@ -137,6 +139,18 @@ def run():
             if check_stud:
                 st.write(df_stud)
 
+# подготовка данных
+    
+    if add_selectbox == "Подготовка данных":
+        st.sidebar.info(sidebar_ttl)
+        st.title("Подготовка данных")
+
+# обработка данных
+    
+    if add_selectbox == "Обработка данных":
+        st.sidebar.info(sidebar_ttl)
+        st.title("Обработка данных")
+    
 # построение модели
     
     if add_selectbox == "Построение модели":
