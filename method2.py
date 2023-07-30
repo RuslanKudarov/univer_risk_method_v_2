@@ -25,8 +25,8 @@ def run():
         st.sidebar.info(sidebar_ttl)
         st.title("Загрузка данных")
               
-        file_abit_upload_ttl = ("Загрузите Excel-файл с данными абитуриентов\n"
-                          "для построения модели:")
+        file_abit_upload_ttl = ("Загрузите Excel-файл\n"
+                          "с данными абитуриентов:")
         file_abit_upload = st.file_uploader(file_abit_upload_ttl,
                                        type = ['xls' or 'xlsx'],
                                        accept_multiple_files = False,
@@ -44,11 +44,11 @@ def run():
             if check_abit:
                 st.write(df_abit)
 
-        file_stud_upload_ttl = ("Загрузите Excel-файл с данными студентов\n"
-                          "для построения модели:")
+        file_stud_upload_ttl = ("Загрузите Excel-файл\n"
+                          "с данными студентов:")
         file_stud_upload = st.file_uploader(file_stud_upload_ttl,
                                        type = ['xls' or 'xlsx'],
-                                       accept_multiple_files = False,
+                                       accept_multiple_files = True,
                                        help = 'принимаются файлы с расширением xls или xlsx')
         
         if file_stud_upload is not None:
@@ -59,7 +59,9 @@ def run():
             df_stud = pd.concat([df_stud, data_stud],
                                 ignore_index = True)
             # вывод данных на веб-странице
-            st.write(df_stud)    
+            check_stud = st.checkbox('Посмотреть данные студентов')
+            if check_stud:
+                st.write(df_stud) 
         
     if add_selectbox == "Построение модели":
         st.sidebar.info(sidebar_ttl)
