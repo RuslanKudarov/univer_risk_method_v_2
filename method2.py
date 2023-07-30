@@ -79,7 +79,7 @@ def run():
                 df_mon_all = pd.concat([df_mon_all, data_mon_all],
                                        ignore_index = True)
         
-        if df_mon_all.lenght > 0:
+        if len(df_mon_all.index) > 0:
             # вывод на веб-странице данных мониторинга (все студенты)
             check_mon_all = st.checkbox('Посмотреть данные мониторинга (все студенты)')
             if check_mon_all:
