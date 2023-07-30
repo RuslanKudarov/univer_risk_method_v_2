@@ -75,7 +75,7 @@ def run():
             if check_mon_all:
                 st.write(df_mon_all) 
 
-        files_mon_neud_upload_ttl = ("Мониторинг (имеют "неудовл"):")
+        files_mon_neud_upload_ttl = ('Мониторинг (имеют "неудовл"):')
         files_mon_neud_upload = st.file_uploader(files_mon_neud_upload_ttl,
                                                 type = ['xls' or 'xlsx'],
                                                 accept_multiple_files = True,
