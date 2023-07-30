@@ -24,20 +24,17 @@ def run():
     if add_selectbox == "Загрузка данных":
         st.sidebar.info(sidebar_ttl)
         st.title("Загрузите Excel-файлы с данными из ЕАИСУ")
+        st.title("(принимаются файлы с расширением xls и xlsx)")
               
         file_abit_upload_ttl = ("Данные абитуриентов:")
         file_abit_upload = st.file_uploader(file_abit_upload_ttl,
                                        type = ['xls' or 'xlsx'],
-                                       accept_multiple_files = False,
-                                       help = 'принимаются файлы xls и xlsx из модуля "Абитуриенты"')
+                                       help = 'перетащите сюда файл, скачанный из модуля "Абитуриенты"')
         
         if file_abit_upload is not None:
-            df_abit = pd.DataFrame()
-            data_abit = pd.read_excel(file_abit_upload,
+            df_abit = pd.read_excel(file_abit_upload,
                                       sheet_name = "Абитуриенты",
-                                      header = 9)
-            df_abit = pd.concat([df_abit, data_abit],
-                                ignore_index = True)           
+                                      header = 9)        
             # вывод данных на веб-странице
             check_abit = st.checkbox('Посмотреть данные абитуриентов')
             if check_abit:
@@ -47,7 +44,7 @@ def run():
         file_stud_upload = st.file_uploader(file_stud_upload_ttl,
                                        type = ['xls' or 'xlsx'],
                                        accept_multiple_files = False,
-                                       help = 'принимаются файлы xls и xlsx из модуля "Студенты")
+                                       help = 'перетащите сюда файл, скачанный из модуля "Студенты"')
         
         if file_stud_upload is not None:
             df_stud = pd.DataFrame()
@@ -61,12 +58,11 @@ def run():
             if check_stud:
                 st.write(df_stud)
 
-        files_mon_all_upload_ttl = ("Загрузите Excel-файл\n"
-                                   "с данными мониторинга (все студенты):")
+        files_mon_all_upload_ttl = ("Данные мониторинга (все студенты):")
         files_mon_all_upload = st.file_uploader(files_mon_all_upload_ttl,
                                                 type = ['xls' or 'xlsx'],
                                                 accept_multiple_files = True,
-                                                help = ''принимаются файлы xls и xlsx из модуля "Мониторинг образовательного процесса"')
+                                                help = 'перетащите сюда файл, скачанный из модуля "Мониторинг образовательного процесса"')
         
         if files_mon_all_upload is not None:
             df_mon_all = pd.DataFrame()
