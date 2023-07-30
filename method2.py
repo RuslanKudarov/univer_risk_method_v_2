@@ -23,14 +23,13 @@ def run():
     
     if add_selectbox == "Загрузка данных":
         st.sidebar.info(sidebar_ttl)
-        st.title("Загрузка данных")
+        st.title("Загрузите Excel-файлы с данными из ЕАИСУ")
               
-        file_abit_upload_ttl = ("Загрузите Excel-файл\n"
-                          "с данными абитуриентов:")
+        file_abit_upload_ttl = ("Данные абитуриентов:")
         file_abit_upload = st.file_uploader(file_abit_upload_ttl,
                                        type = ['xls' or 'xlsx'],
                                        accept_multiple_files = False,
-                                       help = 'принимаются файлы с расширением xls или xlsx')
+                                       help = 'принимаются файлы xls и xlsx из модуля "Абитуриенты"')
         
         if file_abit_upload is not None:
             df_abit = pd.DataFrame()
@@ -44,12 +43,11 @@ def run():
             if check_abit:
                 st.write(df_abit)
 
-        file_stud_upload_ttl = ("Загрузите Excel-файл\n"
-                          "с данными студентов:")
+        file_stud_upload_ttl = ("Данные студентов:")
         file_stud_upload = st.file_uploader(file_stud_upload_ttl,
                                        type = ['xls' or 'xlsx'],
                                        accept_multiple_files = False,
-                                       help = 'принимаются файлы с расширением xls или xlsx')
+                                       help = 'принимаются файлы xls и xlsx из модуля "Студенты")
         
         if file_stud_upload is not None:
             df_stud = pd.DataFrame()
@@ -68,7 +66,7 @@ def run():
         files_mon_all_upload = st.file_uploader(files_mon_all_upload_ttl,
                                                 type = ['xls' or 'xlsx'],
                                                 accept_multiple_files = True,
-                                                help = 'принимаются файлы с расширением xls или xlsx')
+                                                help = ''принимаются файлы xls и xlsx из модуля "Мониторинг образовательного процесса"')
         
         if files_mon_all_upload is not None:
             df_mon_all = pd.DataFrame()
