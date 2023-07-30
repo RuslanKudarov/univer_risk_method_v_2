@@ -80,7 +80,7 @@ def run():
                                        ignore_index = True)
             # вывод данных на веб-странице
             check_mon_all = st.checkbox('Посмотреть данные мониторинга (все студенты)')
-            if check_stud:
+            if check_mon_all:
                 st.write(df_mon_all) 
         
     if add_selectbox == "Построение модели":
