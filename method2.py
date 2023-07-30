@@ -78,10 +78,12 @@ def run():
                                           header = 3)
                 df_mon_all = pd.concat([df_mon_all, data_mon_all],
                                        ignore_index = True)
-        # вывод данных на веб-странице
-        check_mon_all = st.checkbox('Посмотреть данные мониторинга (все студенты)')
-        if check_mon_all:
-            st.write(df_mon_all) 
+        
+        if df_mon_all.lenght > 0:
+            # вывод на веб-странице данных мониторинга (все студенты)
+            check_mon_all = st.checkbox('Посмотреть данные мониторинга (все студенты)')
+            if check_mon_all:
+                st.write(df_mon_all) 
         
     if add_selectbox == "Построение модели":
         st.sidebar.info(sidebar_ttl)
