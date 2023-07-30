@@ -23,7 +23,7 @@ def run():
     
     if add_selectbox == "Загрузка данных":
         st.sidebar.info(sidebar_ttl)
-        st.title(<center>"Загрузка данных"</center>)
+        st.title("Загрузка данных")
               
         file_abit_upload_ttl = ("Загрузите Excel-файл с данными абитуриентов\n"
                           "для построения модели:")
