@@ -300,7 +300,7 @@ def run():
                                      join = "inner")
 
         # конвертируем данные в Excel
-#                    writer = ExcelWriter('2022-2023 (v 2.0 data).xlsx')
+                    writer = ExcelWriter('2022-2023 (v 2.0 data).xls')
 #                    data_ab_dd.to_excel(writer, 'Абитуриенты (без дубликатов)')
 #                    data_ab_mer.to_excel(writer,'Абитуриенты (для анализа)')
 #                    data_st_mer.to_excel(writer,'Студенты (для анализа)')
@@ -310,7 +310,7 @@ def run():
 #                    data_m_usp_neusp.to_excel(writer,'Мониторинг (успевающие)')
 #                    data_m_mer.to_excel(writer,'Мониторинг (для анализа)')
 #                    data_mer.to_excel(writer,'Выборка')
-                    Data_Ex = Data.to_excel('Матрица данных')
+                    Data_Ex = Data.to_excel(writer, 'Матрица данных')
 #                    Data_id.to_excel(writer,'Матрица идентификаторов')
 #                    Data_XY.to_excel(writer,'Матрица наблюдений')
 #                    writer.close()
