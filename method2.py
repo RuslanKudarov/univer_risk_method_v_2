@@ -342,7 +342,7 @@ def run():
                              ]
                     
                     # создадим кнопку для скачивания файла
-                    df_xlsx = dfs_tabs(dfs, sheets, 'multi-test.xlsx')
+                    df_xlsx = dfs_tabs(dfs, sheets, 'df_test.xlsx')
                     st.download_button(label = 'Скачать одним файлом',
                                        data = df_xlsx,
                                        file_name = 'df_test.xlsx')
