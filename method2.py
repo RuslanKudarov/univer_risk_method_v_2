@@ -319,7 +319,7 @@ def run():
         # с массивами данных
                     st.download_button(
                         label = "Скачать файл",
-                        data = writer,
+                        data = Data,
                         file_name = '2022-2023 (v 2.0 data).xlsx'
                     )
 
