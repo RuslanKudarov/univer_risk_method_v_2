@@ -308,7 +308,7 @@ def run():
                         output = BytesIO()
                         output.name = file_name
                         output.encoding = 'utf-8'
-                        writer = pd.ExcelWriter(file_name, engine = 'xlsxwriter')
+                        writer = pd.ExcelWriter(output, engine = 'xlsxwriter')
                         for dataframe, sheet in zip(df_list, sheet_list):
                             dataframe.to_excel(writer, sheet_name = sheet, startrow = 0, startcol = 0)   
                         writer.close()
