@@ -310,7 +310,7 @@ def run():
                     data_m_usp_neusp.to_excel(writer,'Мониторинг (успевающие)')
                     data_m_mer.to_excel(writer,'Мониторинг (для анализа)')
                     data_mer.to_excel(writer,'Выборка')
-                    Data.to_excel(writer,'Матрица данных')
+                    Data_Ex = Data.to_excel(writer,'Матрица данных')
                     Data_id.to_excel(writer,'Матрица идентификаторов')
                     Data_XY.to_excel(writer,'Матрица наблюдений')
                     writer.close()
@@ -319,7 +319,7 @@ def run():
         # с массивами данных
                     st.download_button(
                         label = "Скачать файл",
-                        data = Data,
+                        data = Data_Ex,
                         file_name = '2022-2023 (v 2.0 data).xlsx'
                     )
 
