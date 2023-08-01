@@ -346,7 +346,7 @@ def run():
                     st.download_button(label = 'Скачать одним файлом',
                                        data = df_xlsx,
                                        file_name = 'df_test.xlsx',
-                                       mime = 'text/xlsx')
+                                       mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
                     
 # подготовка данных
     
