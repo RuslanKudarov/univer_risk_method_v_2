@@ -3,7 +3,9 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import xlrd
+import io
 from pandas import ExcelWriter
+from io import BytesIO
 
 # импортируем пакет
 import dill
@@ -341,8 +343,8 @@ def run():
 
                     df_xlsx = dfs_tabs(dfs, sheets, 'multi-test.xlsx')
                     st.download_button(label = '📥 Download Current Result',
-                                                    data = df_xlsx ,
-                                                    file_name =  'df_test.xlsx')
+                                       data = df_xlsx,
+                                       file_name = 'df_test.xlsx')
                     
 #                    writer = ExcelWriter('2022-2023 (v 2.0 data).xlsx')
 #                    data_ab_dd.to_excel(writer, 'Абитуриенты (без дубликатов)')
