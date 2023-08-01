@@ -300,7 +300,51 @@ def run():
                                      join = "inner")
 
         # конвертируем данные в Excel
-                    writer = ExcelWriter('2022-2023 (v 2.0 data).xlsx')
+                    # напишем функцию для конвертирования всех массивов
+                    # в один файл Excel
+                    def dfs_tabs(df_list, sheet_list, file_name):
+                        output = BytesIO()
+                        writer = pd.ExcelWriter(file_name, engine = 'xlsxwriter')   
+                        for dataframe, sheet in zip(df_list, sheet_list):
+                            dataframe.to_excel(writer, sheet_name = sheet, startrow = 0 , startcol = 0)   
+                        writer.close()
+                        processed_data = output.getvalue()
+                        return processed_data
+                    # список массивов 
+                    dfs = [data_ab_dd,
+                           data_ab_mer,
+                           data_st_mer,
+                           data_m_all,
+                           data_m_neud_neusp,
+                           data_m_neat_neusp,
+                           data_m_usp_neusp,
+                           data_m_mer,
+                           data_mer,
+                           Data,
+                           Data_id,
+                           Data_XY
+                          ]
+                    # список названий листов
+                    sheets = ['Абитуриенты (без дубликатов)',
+                              'Абитуриенты (для анализа)',
+                              'Студенты (для анализа)',
+                              'Мониторинг (все данные)',
+                              'Мониторинг (имеют неудовл)',
+                              'Мониторинг (не аттестовано)',
+                              'Мониторинг (успевающие)',
+                              'Мониторинг (для анализа)',
+                              'Выборка',
+                              'Матрица данных',
+                              'Матрица идентификаторов',
+                              'Матрица наблюдений'
+                             ]
+
+                    df_xlsx = dfs_tabs(dfs, sheets, 'multi-test.xlsx')
+                    st.download_button(label = '📥 Download Current Result',
+                                                    data = df_xlsx ,
+                                                    file_name =  'df_test.xlsx')
+                    
+#                    writer = ExcelWriter('2022-2023 (v 2.0 data).xlsx')
 #                    data_ab_dd.to_excel(writer, 'Абитуриенты (без дубликатов)')
 #                    data_ab_mer.to_excel(writer,'Абитуриенты (для анализа)')
 #                    data_st_mer.to_excel(writer,'Студенты (для анализа)')
@@ -310,7 +354,7 @@ def run():
 #                    data_m_usp_neusp.to_excel(writer,'Мониторинг (успевающие)')
 #                    data_m_mer.to_excel(writer,'Мониторинг (для анализа)')
 #                    data_mer.to_excel(writer,'Выборка')
-                    Data_Ex = Data.to_excel(writer, 'Матрица данных')
+#                    Data.to_excel(writer, 'Матрица данных')
 #                    Data_id.to_excel(writer,'Матрица идентификаторов')
 #                    Data_XY.to_excel(writer,'Матрица наблюдений')
 #                    writer.close()
