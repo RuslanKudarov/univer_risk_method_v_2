@@ -148,7 +148,7 @@ def run():
             if check_stud:
                 st.write(df_stud)
 
-        go_2 = st.button('Записать данные в один файл', disabled = True, help = 'Загрузите файлы в поля')
+        # запись данных в один файл
         
         if len(df_abit.index) > 0 and len(df_mon_all.index) > 0 and len(df_stud.index) > 0:
             if len(df_mon_all.index) == len(df_mon_neat.index) + len(df_mon_neud.index) + len(df_mon_usp.index):
@@ -347,7 +347,9 @@ def run():
                     st.download_button(label = 'Скачать файл',
                                        data = df_xlsx,
                                        file_name = 'Исходные данные.xlsx')
-                    
+                else:
+                    go_2 = st.button('Записать данные в один файл', disabled = True, help = 'Загрузите файлы в поля')
+    
 # обработка данных
     
     if add_selectbox == "Обработка данных":
