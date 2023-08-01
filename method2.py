@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import xlrd
+from  pd import ExcelWriter
 
 # импортируем пакет
 import dill
@@ -150,7 +151,178 @@ def run():
             if len(df_mon_all.index) == len(df_mon_neat.index) + len(df_mon_neud.index) + len(df_mon_usp.index):
                 go_2 = st.button('Обработать данные')
                 if go_2:
-                    st.write(":smile:")                
+        # подготовка данных
+        # подготовка абитуриенты
+                    # удалим дубликаты абитуриентов
+                    # совпадающие по первым 8 столбцам
+                    data_ab_dd = df_abit.drop_duplicates(subset = ['ФИО',
+                                                                   'Пол',
+                                                                   'Дата рождения',
+                                                                   'Тип УЛ',
+                                                                   'Серия УЛ',
+                                                                   'Номер УЛ',
+                                                                   'Дата выдачи УЛ',
+                                                                   'Кем выдано УЛ'])
+                    # в столбцах с результатами
+                    # Русский язык ЕГЭ и Математика ЕГЭ
+                    # заменим пропуски и значения меньше 36 баллов
+                    # значением 0 баллов
+                    ege_rus = np.where((data_ab_dd['Ря'].isnull()) |
+                                       (data_ab_dd['Ря'] < 36),
+                                       0,
+                                       data_ab_dd['Ря'])
+                    ege_math = np.where((data_ab_dd['М'].isnull()) |
+                                        (data_ab_dd['М'] < 36),
+                                        0,
+                                        data_ab_dd['М'])
+                    # сконструируем столбец 'Обязательные ЕГЭ'
+                    ege = pd.DataFrame(ege_rus + ege_math,
+                                       columns = ['Обязательные ЕГЭ'])
+                    # присвоим столбцу 'Обязательные ЕГЭ'
+                    # такие же индексы как у массива data_ab_dd
+                    ege_index = ege.set_index(data_ab_dd.index)
+                    # присоеденим сконструированный столбец 'Обязательные ЕГЭ'
+                    # к массиву data_ab_dd справа
+                    data_ab_dd_ege = pd.concat([data_ab_dd, ege_index],
+                                               axis = 1)
+                    # отберем только нужные столбцы для слияния таблиц
+                    data_ab_mer = data_ab_dd_ege[['ФИО',
+                                                  'Пол',
+                                                  'Дата рождения',
+                                                  'Нуждается в общежитии',
+                                                  'Полученное образование',
+                                                  'Ср. балл док-та об образовании',
+                                                  'Обязательные ЕГЭ']]
+
+        # подготовка данных
+        # подготовка студенты
+                    # сконструируем столбец 'Тип договора'
+                    data_st_eaisu = df_stud.copy()
+                    data_st_eaisu['Тип договора'] = df_stud['Вид затрат'] + ' ' + df_stud['Целевой прием']
+                    dct_tip_dog = {'бюджет да':'целевик',
+                                   'бюджет нет':'бюджетник',
+                                   'по договору нет':'платник'}
+                    data_st_eaisu['Тип договора'] = data_st_eaisu['Тип договора'].map(dct_tip_dog)
+                    # переименуем столбцы 'Формирующее подр.', 'Направление подготовки (специальность)' и 'Планируемый срок'
+                    data_st_rn = data_st_eaisu.rename(columns = {'Формирующее подр.':'Факультет',
+                                                                 'Планируемый срок':'Срок обучения',
+                                                                 'Направление подготовки (специальность)':'Направление подготовки'})
+                    # отберем только нужные столбцы для слияния таблиц
+                    data_st_mer = data_st_rn[['ФИО',
+                                              'Пол',
+                                              'Дата рождения',
+                                              'Гражданство',
+                                              'Группа',
+                                              'Факультет',
+                                              'Направление подготовки',
+                                              'Срок обучения',
+                                              'Тип договора']]
+
+        # подготовка данных
+        # подготовка мониторинг
+                    # массив мониторинга (все студенты)
+                    data_m_all = df_mon_all.copy()
+                    # в массив мониторинга (имеют неудовл)
+                    # добавим справа столбец "Неуспеваемость"
+                    # с одинаковым значением "1" по всем строкам
+                    data_m_neud_neusp = df_mon_neud.assign(Неуспеваемость = 1)
+                    # в массив мониторинга (не аттестовано)
+                    # добавим справа столбец "Неуспеваемость"
+                    # с одинаковым значением "1" по всем строкам
+                    data_m_neat_neusp = df_mon_neat.assign(Неуспеваемость = 1)
+                    # в массив мониторинга (успевают)
+                    # добавим справа столбец "Неуспеваемость"
+                    # с одинаковым значением "0" по всем строкам
+                    data_m_usp_neusp = df_mon_usp.assign(Неуспеваемость = 0)
+                    # объединим все массивы мониторинга
+                    data_m = pd.concat([data_m_neud_neusp,
+                                        data_m_neat_neusp,
+                                        data_m_usp_neusp],
+                                       ignore_index = True)
+                    # отберем только нужные столбцы для слияния таблиц
+                    data_m_mer = data_m[['ФИО',
+                                         'Пол',
+                                         'Дата рождения',
+                                         'Неуспеваемость']]
+
+        # подготовка данных
+        # слияние данных
+                    # выполним слияние таблиц данных студентов и мониторинга
+                    data_st_m_mer = data_st_mer.merge(data_m_mer,
+                                                      how = 'inner',
+                                                      on = None,
+                                                      left_on = None,
+                                                      right_on = None,
+                                                      left_index = False,
+                                                      right_index = False,
+                                                      sort = False,
+                                                      suffixes = ('_x', '_y'),
+                                                      copy = None,
+                                                      indicator = False,
+                                                      validate = None)
+                    # выполним слияние таблиц данных студентов и мониторинга
+                    # с данными абитуриентов
+                    data_mer = data_st_m_mer.merge(data_ab_mer,
+                                                   how = 'left',
+                                                   on = None,
+                                                   left_on = None,
+                                                   right_on = None,
+                                                   left_index = False,
+                                                   right_index = False,
+                                                   sort = False,
+                                                   suffixes = ('_x', '_y'),
+                                                   copy = None,
+                                                   indicator = False,
+                                                   validate = None)
+
+        # формирование матриц данных
+                    # сформируем матрицу идентификаторов
+                    Data_id = data_mer[['ФИО',
+                                        'Группа']]
+                    # сформируем матрицу наблюдений
+                    Data_X = data_mer[['Пол',
+                                       'Нуждается в общежитии',
+                                       'Полученное образование',
+                                       'Гражданство',
+                                       'Факультет',
+                                       'Направление подготовки',
+                                       'Срок обучения',
+                                       'Тип договора',
+                                       'Ср. балл док-та об образовании',
+                                       'Обязательные ЕГЭ']]
+                    Data_Y = data_mer['Неуспеваемость']
+                    Data_XY = pd.concat([Data_X, Data_Y],
+                                        axis = 1,
+                                        join = "inner")
+                    # сформируем матрицу данных
+                    Data = pd.concat([Data_id, Data_XY],
+                                     axis = 1,
+                                     join = "inner")
+
+        # конвертируем данные в Excel
+                    writer = ExcelWriter('2022-2023 (v 2.0 data).xlsx')
+                    data_ab_dd.to_excel(writer, 'Абитуриенты (без дубликатов)')
+                    data_ab_mer.to_excel(writer,'Абитуриенты (для анализа)')
+                    data_st_mer.to_excel(writer,'Студенты (для анализа)')
+                    data_m_all.to_excel(writer,'Мониторинг (все данные)')
+                    data_m_neud_neusp.to_excel(writer,'Мониторинг (имеют неудовл)')
+                    data_m_neat_neusp.to_excel(writer,'Мониторинг (не аттестовано)')
+                    data_m_usp_neusp.to_excel(writer,'Мониторинг (успевающие)')
+                    data_m_mer.to_excel(writer,'Мониторинг (для анализа)')
+                    data_mer.to_excel(writer,'Выборка')
+                    Data.to_excel(writer,'Матрица данных')
+                    Data_id.to_excel(writer,'Матрица идентификаторов')
+                    Data_XY.to_excel(writer,'Матрица наблюдений')
+                    writer.close()
+
+        # создаем кнопку для скачивания файла
+        # с массивами данных
+                    st.download_button(
+                        label = "Скачать файл",
+                        data = csv,
+                        file_name = 'large_df.csv',
+                        mime = 'text/csv',
+                    )
 
 # подготовка данных
     
