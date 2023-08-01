@@ -307,10 +307,11 @@ def run():
                     def dfs_tabs(df_list, sheet_list, file_name):
                         output = BytesIO()
                         output.name = file_name
-                        output.encoding = 'utf-8'
+#                        output.encoding = 'utf-8'
                         writer = pd.ExcelWriter(output, engine = 'xlsxwriter')
                         for dataframe, sheet in zip(df_list, sheet_list):
-                            dataframe.to_excel(writer, sheet_name = sheet, startrow = 0, startcol = 0)   
+#                            dataframe.to_excel(writer, sheet_name = sheet, startrow = 0, startcol = 0)
+                            dataframe.to_excel(writer, sheet_name = sheet) 
                         writer.close()
                         processed_data = output.getvalue()
                         return processed_data
