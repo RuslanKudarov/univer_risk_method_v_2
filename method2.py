@@ -35,6 +35,13 @@ def run():
         file_abit_upload = st.file_uploader(file_abit_upload_ttl,
                                        type = ['xls' or 'xlsx'],
                                        help = 'перетащите сюда файл, скачанный из модуля "Абитуриенты"')
+
+        df_abit = pd.DataFrame()
+        df_stud = pd.DataFrame()
+        df_mon_all = pd.DataFrame()
+        df_mon_neud = pd.DataFrame()
+        df_mon_neat = pd.DataFrame()
+        df_mon_usp = pd.DataFrame()
         
         if file_abit_upload is not None:
             df_abit = pd.read_excel(file_abit_upload,
