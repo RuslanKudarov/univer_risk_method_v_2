@@ -20,7 +20,6 @@ def run():
     question = ("Выберите действие:")
     
     add_selectbox = st.sidebar.selectbox(question, ("Загрузка данных",
-                                                    "Подготовка данных",
                                                     "Обработка данных",
                                                     "Построение модели",
                                                     "Прогнозирование неуспеваемости"))
@@ -149,6 +148,8 @@ def run():
             if check_stud:
                 st.write(df_stud)
 
+        
+        
         if len(df_abit.index) > 0 and len(df_mon_all.index) > 0 and len(df_stud.index) > 0:
             if len(df_mon_all.index) == len(df_mon_neat.index) + len(df_mon_neud.index) + len(df_mon_usp.index):
                 go_2 = st.button('Записать данные в один файл')
@@ -347,12 +348,6 @@ def run():
                                        data = df_xlsx,
                                        file_name = 'Исходные данные.xlsx')
                     
-# подготовка данных
-    
-    if add_selectbox == "Подготовка данных":
-        st.sidebar.info(sidebar_ttl)
-        st.title("Подготовка данных")
-
 # обработка данных
     
     if add_selectbox == "Обработка данных":
