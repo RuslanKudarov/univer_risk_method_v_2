@@ -345,8 +345,7 @@ def run():
                     df_xlsx = dfs_tabs(dfs, sheets, 'Исходные данные.xlsx')
                     st.download_button(label = 'Скачать одним файлом',
                                        data = df_xlsx,
-                                       file_name = 'Исходные данные.xlsx',
-                                       persist = True)
+                                       file_name = 'Исходные данные.xlsx')
                     
 # подготовка данных
     
