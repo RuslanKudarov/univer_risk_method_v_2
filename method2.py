@@ -301,16 +301,14 @@ def run():
                                      axis = 1,
                                      join = "inner")
 
-        # конвертируем данные в Excel
+        # создание возможности скачать массивы одним файлом
                     # напишем функцию для конвертирования всех массивов
                     # в один файл Excel
                     def dfs_tabs(df_list, sheet_list, file_name):
                         output = BytesIO()
                         output.name = file_name
-#                        output.encoding = 'utf-8'
                         writer = pd.ExcelWriter(output, engine = 'xlsxwriter')
                         for dataframe, sheet in zip(df_list, sheet_list):
-#                            dataframe.to_excel(writer, sheet_name = sheet, startrow = 0, startcol = 0)
                             dataframe.to_excel(writer, sheet_name = sheet) 
                         writer.close()
                         processed_data = output.getvalue()
@@ -343,13 +341,11 @@ def run():
                               'Матрица идентификаторов',
                               'Матрица наблюдений'
                              ]
-                    
                     # создадим кнопку для скачивания файла
-                    df_xlsx = dfs_tabs(dfs, sheets, 'df_test.xlsx')
+                    df_xlsx = dfs_tabs(dfs, sheets, 'Исходные данные.xlsx')
                     st.download_button(label = 'Скачать одним файлом',
                                        data = df_xlsx,
-                                       file_name = 'df_test.xlsx',
-                                       mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                                       file_name = 'Исходные данные.xlsx')
                     
 # подготовка данных
     
