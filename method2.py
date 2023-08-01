@@ -319,9 +319,8 @@ def run():
         # с массивами данных
                     st.download_button(
                         label = "Скачать файл",
-                        data = csv,
-                        file_name = 'large_df.csv',
-                        mime = 'text/csv',
+                        data = writer,
+                        file_name = '2022-2023 (v 2.0 data).xlsx'
                     )
 
 # подготовка данных
