@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import xlrd
-from pd import ExcelWriter
+from pandas import ExcelWriter
 
 # импортируем пакет
 import dill
