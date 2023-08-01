@@ -306,8 +306,7 @@ def run():
                     # в один файл Excel
                     def dfs_tabs(df_list, sheet_list, file_name):
                         output = BytesIO()
-                        output.encoding = 'utf-8'
-                        writer = pd.ExcelWriter(file_name, engine = 'xlsxwriter')
+                        writer = pd.ExcelWriter(file_name, engine = 'xlsxwriter', encoding = 'utf-8')
                         for dataframe, sheet in zip(df_list, sheet_list):
                             dataframe.to_excel(writer, sheet_name = sheet, startrow = 0, startcol = 0)   
                         writer.close()
