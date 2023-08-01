@@ -305,13 +305,13 @@ def run():
                     # напишем функцию для конвертирования всех массивов
                     # в один файл Excel
                     def dfs_tabs(df_list, sheet_list, file_name):
-                        output = BytesIO()
+#                        output = BytesIO()
                         writer = pd.ExcelWriter(file_name, engine = 'xlsxwriter')   
                         for dataframe, sheet in zip(df_list, sheet_list):
                             dataframe.to_excel(writer, sheet_name = sheet)   
                         writer.close()
-                        processed_data = output.getvalue()
-                        return processed_data
+#                        processed_data = output.getvalue()
+                        return writer
                     # создадим список массивов 
                     dfs = [data_ab_dd,
                            data_ab_mer,
