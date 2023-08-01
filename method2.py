@@ -308,7 +308,7 @@ def run():
                         output = BytesIO()
                         writer = pd.ExcelWriter(file_name, engine = 'xlsxwriter')
                         for dataframe, sheet in zip(df_list, sheet_list):
-                            dataframe.to_excel(writer, sheet_name = sheet)   
+                            dataframe.to_excel(writer, sheet_name = sheet, startrow = 0, startcol = 0)   
                         writer.close()
                         processed_data = output.getvalue()
                         return processed_data
@@ -345,7 +345,8 @@ def run():
                     df_xlsx = dfs_tabs(dfs, sheets, 'df_test.xlsx')
                     st.download_button(label = 'Скачать одним файлом',
                                        data = df_xlsx,
-                                       file_name = 'df_test.xlsx')
+                                       file_name = 'df_test.xlsx',
+                                       mime = 'text/xlsx')
                     
 # подготовка данных
     
