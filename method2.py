@@ -311,7 +311,7 @@ def run():
                             dataframe.to_excel(writer, sheet_name = sheet)   
                         writer.close()
                         processed_data = output.getvalue()
-                        return writer
+                        return processed_data
                     # создадим список массивов 
                     dfs = [data_ab_dd,
                            data_ab_mer,
