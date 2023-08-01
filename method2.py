@@ -347,8 +347,8 @@ def run():
                     st.download_button(label = 'Скачать файл',
                                        data = df_xlsx,
                                        file_name = 'Исходные данные.xlsx')
-                else:
-                    go_2 = st.button('Записать данные в один файл', disabled = True, help = 'Загрузите файлы в поля')
+        else:
+            go_2 = st.button('Записать данные в один файл', disabled = True, help = 'Загрузите файлы в поля')
     
 # обработка данных
     
