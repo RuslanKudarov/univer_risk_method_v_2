@@ -151,7 +151,7 @@ def run():
 
         if len(df_abit.index) > 0 and len(df_mon_all.index) > 0 and len(df_stud.index) > 0:
             if len(df_mon_all.index) == len(df_mon_neat.index) + len(df_mon_neud.index) + len(df_mon_usp.index):
-                go_2 = st.button('Обработать данные')
+                go_2 = st.button('Записать данные в один файл')
                 if go_2:
         # подготовка данных
         # подготовка абитуриенты
@@ -343,7 +343,7 @@ def run():
                              ]
                     # создадим кнопку для скачивания файла
                     df_xlsx = dfs_tabs(dfs, sheets, 'Исходные данные.xlsx')
-                    st.download_button(label = 'Скачать одним файлом',
+                    st.download_button(label = 'Скачать файл',
                                        data = df_xlsx,
                                        file_name = 'Исходные данные.xlsx')
                     
