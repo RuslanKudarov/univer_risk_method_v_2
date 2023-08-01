@@ -32,7 +32,7 @@ def run():
     if add_selectbox == "Загрузка данных":
         st.sidebar.info(sidebar_ttl)
         st.title("Загрузите Excel-файлы с данными из ЕАИСУ")
-              
+                      
         file_abit_upload_ttl = ("Абитуриенты:")
         file_abit_upload = st.file_uploader(file_abit_upload_ttl,
                                        type = ['xls' or 'xlsx'],
@@ -148,11 +148,11 @@ def run():
             if check_stud:
                 st.write(df_stud)
 
-        
+        go_2 = st.button('Записать данные в один файл', disabled = True)
         
         if len(df_abit.index) > 0 and len(df_mon_all.index) > 0 and len(df_stud.index) > 0:
             if len(df_mon_all.index) == len(df_mon_neat.index) + len(df_mon_neud.index) + len(df_mon_usp.index):
-                go_2 = st.button('Записать данные в один файл')
+                go_2 = st.button('Записать данные в один файл', disabled = False)
                 if go_2:
         # подготовка данных
         # подготовка абитуриенты
