@@ -320,7 +320,7 @@ def run():
                     st.download_button(
                         label = "Скачать файл",
                         data = Data_Ex,
-                        file_name = '2022-2023 (v 2.0 data).xlsx'
+                        file_name = '2022-2023 (v 2.0 data).xls'
                     )
 
 # подготовка данных
