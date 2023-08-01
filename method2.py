@@ -300,7 +300,7 @@ def run():
                                      join = "inner")
 
         # конвертируем данные в Excel
-                    writer = ExcelWriter('2022-2023 (v 2.0 data).xls')
+                    writer = ExcelWriter('2022-2023 (v 2.0 data).xlsx')
 #                    data_ab_dd.to_excel(writer, 'Абитуриенты (без дубликатов)')
 #                    data_ab_mer.to_excel(writer,'Абитуриенты (для анализа)')
 #                    data_st_mer.to_excel(writer,'Студенты (для анализа)')
@@ -320,7 +320,7 @@ def run():
                     st.download_button(
                         label = "Скачать файл",
                         data = Data_Ex,
-                        file_name = '2022-2023 (v 2.0 data).xls'
+                        file_name = '2022-2023 (v 2.0 data).xlsx'
                     )
 
 # подготовка данных
